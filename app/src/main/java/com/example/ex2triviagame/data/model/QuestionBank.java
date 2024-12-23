@@ -12,6 +12,8 @@ public class QuestionBank {
                 List.of("Shakespeare", "Tolstoy", "Hemingway", "Orwell"), "Shakespeare"));
         questions.add(new MultipleChoiceQuestion("What is the largest planet in our Solar System?",
                 List.of("Mars", "Earth", "Jupiter", "Saturn"), "Jupiter"));
+        questions.add(new MultipleChoiceQuestion("Which programming language is known as the 'language of the web'?",
+                List.of("Python", "JavaScript", "C++", "Ruby"), "JavaScript"));
         return questions;
     }
 }
