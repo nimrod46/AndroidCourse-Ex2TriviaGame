@@ -1,12 +1,15 @@
 package com.example.ex2triviagame.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ex2triviagame.data.DatabaseHelper;
 import com.example.ex2triviagame.data.model.MultipleChoiceQuestion;
 import com.example.ex2triviagame.data.model.Question;
 import com.example.ex2triviagame.data.model.QuestionBank;
@@ -32,8 +35,17 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.option4Button)
         };
 
-        questions = QuestionBank.getQuestions();
+        questions = QuestionBank.getQuestions(this);
         loadQuestion(questionTextView, answerButtons);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("TriviaGamePrefs", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", null); // Get the saved username
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        String lastScore = dbHelper.getLastScore(username);
+
+        if (!lastScore.equals("No previous scores")) {
+            Toast.makeText(this, lastScore, Toast.LENGTH_LONG).show();
+        }
     }
 
     private void loadQuestion(TextView questionTextView, Button[] answerButtons) {
